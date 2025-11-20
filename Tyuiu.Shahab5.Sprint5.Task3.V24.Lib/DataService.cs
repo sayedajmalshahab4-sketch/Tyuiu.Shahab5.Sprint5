@@ -1,6 +1,7 @@
 ﻿using System;
-using tyuiu.cources.programming.interfaces.Sprint5;
 using System.IO;
+using System.Text;
+using tyuiu.cources.programming.interfaces.Sprint5;
 
 
 namespace Tyuiu.Shahab5.Sprint5.Task3.V24.Lib
@@ -15,21 +16,19 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24.Lib
         {
             string path = Path.Combine(Path.GetTempPath(), "OutPutFileTask3.bin");
 
-            // Вычисление значения функции
+            // Вычисление значения функции F(x) = 6x⁴ + 0.23x² + 1.04x
             double y = 6.0 * Math.Pow(x, 4) + 0.23 * Math.Pow(x, 2) + 1.04 * x;
             y = Math.Round(y, 3);
 
-            // Запись в бинарный файл
-            using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
+            // Запись в бинарный файл с использованием MemoryStream
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            using (BinaryWriter writer = new BinaryWriter(fs, Encoding.UTF8, false))
             {
+                // Записываем double в бинарном формате
                 writer.Write(y);
             }
 
-            // Чтение файла и преобразование в Base64 для проверки
-            byte[] fileBytes = File.ReadAllBytes(path);
-            string base64String = Convert.ToBase64String(fileBytes);
-
-            return base64String;
+            return path;
         }
     }
 }

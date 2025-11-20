@@ -10,13 +10,13 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24
         {
             DataService ds = new DataService();
 
-            Console.Title = "Спринт #5 | Выполнил: Шахаб А. | АСОиУБ-23-1";
+            Console.Title = "Спринт #5 | Выполнил: Шахаб А. | АСОиУБ-25-1";
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* Спринт #5                                                               *");
             Console.WriteLine("* Тема: Потоковый метод записи данных в бинарный файл                     *");
             Console.WriteLine("* Задание #3                                                              *");
             Console.WriteLine("* Вариант #24                                                             *");
-            Console.WriteLine("* Выполнил: Шахаб А. | АСОиУБ-23-1                                       *");
+            Console.WriteLine("* Выполнил: Шахаб А. | АСОиУБ-25-1                                       *");
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* УСЛОВИЕ:                                                                *");
             Console.WriteLine("* Дано выражение F(x) = 6x⁴ + 0.23x² + 1.04x, вычислить его значение     *");

@@ -18,6 +18,10 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24.Test
             bool fileExists = File.Exists(path);
             Assert.AreEqual(true, fileExists);
 
+            // Проверка размера файла (double = 8 байт)
+            FileInfo fileInfo = new FileInfo(path);
+            Assert.AreEqual(8, fileInfo.Length);
+
             // Проверка содержимого файла через Base64
             byte[] fileBytes = File.ReadAllBytes(path);
             string resultBase64 = Convert.ToBase64String(fileBytes);
