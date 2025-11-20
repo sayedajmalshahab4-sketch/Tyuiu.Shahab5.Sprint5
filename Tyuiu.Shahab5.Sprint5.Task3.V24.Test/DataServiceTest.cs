@@ -8,25 +8,22 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24.Test
     public class DataServiceTest
     {
         [TestMethod]
-        public void ValidSaveToFileBinaryData()
+        public void ValidSaveToFileTextData()
         {
             DataService ds = new DataService();
             int x = 3;
-            string path = DataService.SaveToFileBinaryData(x);
+            string path = ds.SaveToFileTextData(x);
 
             // Проверка существования файла
             bool fileExists = File.Exists(path);
             Assert.AreEqual(true, fileExists);
 
-            // Проверка содержимого файла
-            double result;
-            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
-            {
-                result = reader.ReadDouble();
-            }
+            // Проверка содержимого файла через Base64
+            byte[] fileBytes = File.ReadAllBytes(path);
+            string resultBase64 = Convert.ToBase64String(fileBytes);
+            string wait = "FK5H4Xo8ZUA=";
 
-            double wait = 15.641; // Ожидаемое значение для формулы x² + sin(x) + 2.5x - 1.5 при x=3
-            Assert.AreEqual(wait, result);
+            Assert.AreEqual(wait, resultBase64);
         }
     }
 }

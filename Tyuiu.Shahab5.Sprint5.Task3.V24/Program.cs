@@ -10,18 +10,18 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24
         {
             DataService ds = new DataService();
 
-            Console.Title = "Спринт #5 | Выполнил: Шахаб А. | АСОиУБ-25-1";
+            Console.Title = "Спринт #5 | Выполнил: Шахаб А. | АСОиУБ-23-1";
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* Спринт #5                                                               *");
-            Console.WriteLine("* Тема: Класс BinaryWriter. Запись данных в бинарный файл                *");
-            Console.WriteLine("* Задание #1                                                              *");
+            Console.WriteLine("* Тема: Потоковый метод записи данных в бинарный файл                     *");
+            Console.WriteLine("* Задание #3                                                              *");
             Console.WriteLine("* Вариант #24                                                             *");
-            Console.WriteLine("* Выполнил: Шахаб А. | АСОиУБ-25-1                                       *");
+            Console.WriteLine("* Выполнил: Шахаб А. | АСОиУБ-23-1                                       *");
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* УСЛОВИЕ:                                                                *");
-            Console.WriteLine("* Дано выражение, вычислить его значение при x = 3, результат сохранить  *");
-            Console.WriteLine("* в бинарный файл OutPutFileTask3.bin и вывести на консоль. Округлить    *");
-            Console.WriteLine("* до трёх знаков после запятой.                                           *");
+            Console.WriteLine("* Дано выражение F(x) = 6x⁴ + 0.23x² + 1.04x, вычислить его значение     *");
+            Console.WriteLine("* при x = 3, результат сохранить в бинарный файл OutPutFileTask3.bin     *");
+            Console.WriteLine("* и вывести на консоль. Округлить до трёх знаков после запятой.          *");
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
@@ -34,9 +34,9 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24
             Console.WriteLine("* РЕЗУЛЬТАТ:                                                             *");
             Console.WriteLine("***************************************************************************");
 
-            string path = DataService.SaveToFileBinaryData(x);
+            string path = ds.SaveToFileTextData(x);
 
-            // Чтение результата из бинарного файла и вывод на консоль
+            // Чтение результата из бинарного файла
             double result;
             using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
@@ -44,7 +44,12 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24
             }
 
             Console.WriteLine($"Результат сохранен в файл: {path}");
-            Console.WriteLine($"Значение функции при x = {x} равно {result}");
+            Console.WriteLine($"Значение функции F({x}) = {result}");
+
+            // Также выводим Base64 для проверки
+            byte[] fileBytes = File.ReadAllBytes(path);
+            string base64String = Convert.ToBase64String(fileBytes);
+            Console.WriteLine($"Base64 представление: {base64String}");
 
             Console.ReadKey();
         }
