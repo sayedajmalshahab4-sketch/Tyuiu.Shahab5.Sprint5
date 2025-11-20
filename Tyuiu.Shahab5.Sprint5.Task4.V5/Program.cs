@@ -10,53 +10,38 @@ namespace Tyuiu.Shahab5.Sprint5.Task4.V5
         {
             DataService ds = new DataService();
 
-            Console.Title = "Спринт #5 | Выполнил: Шахаб А. | АСОиУБ-25-1";
+            Console.Title = "Спринт #5 | Выполнил: Шахаб А. | АСОиУБ-23-1";
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* Спринт #5                                                               *");
             Console.WriteLine("* Тема: Чтение данных из текстового файла                                 *");
             Console.WriteLine("* Задание #4                                                              *");
             Console.WriteLine("* Вариант #5                                                              *");
-            Console.WriteLine("* Выполнил: Шахаб А. | АСОиУБ-25-1                                       *");
+            Console.WriteLine("* Выполнил: Шахаб А. | АСОиУБ-23-1                                       *");
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* УСЛОВИЕ:                                                                *");
-            Console.WriteLine("* Дан файл С:\\DataSprint5\\InPutDataFileTask4V5.txt в котором есть       *");
-            Console.WriteLine("* вещественное значение. Прочитать значение из файла и подставить вместо *");
-            Console.WriteLine("* x в формуле. Вычислить значение и вернуть полученный результат на      *");
-            Console.WriteLine("* консоль. Округлить до трёх знаков после запятой.                       *");
+            Console.WriteLine("* Дан файл с вещественным значением. Прочитать значение и подставить     *");
+            Console.WriteLine("* вместо x в формуле y = (4.26 * x) / sin(x). Вычислить значение и       *");
+            Console.WriteLine("* вернуть результат на консоль. Округлить до трёх знаков после запятой.  *");
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
 
-            string path = @"C:\DataSprint5\InPutDataFileTask4V5.txt";
+            string path = Path.Combine(Path.GetTempPath(), "InPutDataFileTask4V5.txt");
 
-            Console.WriteLine($"Данные находятся в файле: {path}");
-
-            // Проверка существования файла
             if (!File.Exists(path))
             {
-                Console.WriteLine("Файл не существует! Создаем тестовый файл...");
-                string directory = Path.GetDirectoryName(path);
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-                File.WriteAllText(path, "2.5"); // Тестовое значение
+                File.WriteAllText(path, "2.0");
             }
+
+            Console.WriteLine($"Путь к файлу: {path}");
 
             Console.WriteLine();
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* РЕЗУЛЬТАТ:                                                             *");
             Console.WriteLine("***************************************************************************");
 
-            try
-            {
-                double result = ds.LoadFromDataFile(path);
-                Console.WriteLine($"Значение функции = {result}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex.Message}");
-            }
+            double result = ds.LoadFromDataFile(path);
+            Console.WriteLine($"Значение функции y = {result}");
 
             Console.ReadKey();
         }
