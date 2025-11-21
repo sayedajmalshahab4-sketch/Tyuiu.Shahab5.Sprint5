@@ -12,7 +12,7 @@ namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Lib
 
         public double LoadFromDataFile(string path)
         {
-            double sum = 0;
+            double sum = 0; 
 
             string[] lines = File.ReadAllLines(path);
 
