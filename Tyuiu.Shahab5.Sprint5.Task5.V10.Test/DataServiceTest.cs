@@ -27,7 +27,7 @@ namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Test
             File.WriteAllLines(path, testData);
 
             double result = ds.LoadFromDataFile(path);
-            double wait = 30; // 4 + 6 + 8 + 12 = 30
+            double wait = 30; // 4 + 6 + 8 + 12 = 30 
 
             Assert.AreEqual(wait, result);
 
