@@ -14,7 +14,7 @@ namespace Tyuiu.Shahab5.Sprint5.Task4.V5.Lib
             string strX = File.ReadAllText(path);
             double x = Convert.ToDouble(strX);
 
-            double y = (4.26 * x) / Math.Sin(x);
+            double y = (4.26 * x) / Math.Sin(x); 
             y = Math.Round(y, 3);
 
             return y;
