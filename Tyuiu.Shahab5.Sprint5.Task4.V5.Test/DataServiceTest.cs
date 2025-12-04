@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using Tyuiu.Shahab5.Sprint5.Task4.V5.Lib;
+using System.IO;
 
 namespace Tyuiu.Shahab5.Sprint5.Task4.V5.Test
 {
@@ -10,25 +10,31 @@ namespace Tyuiu.Shahab5.Sprint5.Task4.V5.Test
         [TestMethod]
         public void ValidLoadFromDataFile()
         {
-            DataService ds = new DataService();
-
-            // Создание временного файла с тестовыми данными
+            // Создаем тестовый файл с данными
             string path = @"C:\DataSprint5\InPutDataFileTask4V5.txt";
 
-            // Создание директории, если она не существует
-            string directory = Path.GetDirectoryName(path);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            // Создаем папку, если её нет
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
 
-            // Запись тестового значения в файл
-            File.WriteAllText(path, "3.14");
+            // Записываем тестовое значение в файл
+            File.WriteAllText(path, "2.5");
 
-            double result = ds.LoadFromDataFile(path);
-            double wait = 12.865; // Ожидаемое значение для формулы x² + sin(x) + 2.5 при x=3.14
+            DataService ds = new DataService();
+            double res = ds.LoadFromDataFile(path);
 
-            Assert.AreEqual(wait, result);
+            // Проверяем результат для x = 2.5
+            double x = 2.5;
+            double wait = Math.Round((4.26 * x) / Math.Sin(x), 3);
+
+            Assert.AreEqual(wait, res);
+        }
+
+        [TestMethod]
+        public void ValidFileExists()
+        {
+            string path = @"C:\DataSprint5\InPutDataFileTask4V5.txt";
+            bool fileExists = File.Exists(path);
+            Assert.IsTrue(fileExists);
         }
     }
 }
