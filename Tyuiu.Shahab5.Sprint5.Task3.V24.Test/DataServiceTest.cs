@@ -8,26 +8,33 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24.Test
     public class DataServiceTest
     {
         [TestMethod]
-        public void ValidSaveToFileTextData()
+        public void ValidSaveToFileBinaryData()
         {
             DataService ds = new DataService();
-            int x = 3;
-            string path = ds.SaveToFileTextData(x);
+            string path = ds.SaveToFileBinaryData(3);
 
-            // Проверка существования файла
-            bool fileExists = File.Exists(path);
-            Assert.AreEqual(true, fileExists);
-
-            // Проверка размера файла (double = 8 байт)
             FileInfo fileInfo = new FileInfo(path);
-            Assert.AreEqual(8, fileInfo.Length);
+            bool fileExists = fileInfo.Exists;
+            bool wait = true;
+            Assert.AreEqual(wait, fileExists);
+        }
 
-            // Проверка содержимого файла через Base64
-            byte[] fileBytes = File.ReadAllBytes(path);
-            string resultBase64 = Convert.ToBase64String(fileBytes);
-            string wait = "FK5H4Xo8ZUA=";
+        [TestMethod]
+        public void ValidFileContent()
+        {
+            DataService ds = new DataService();
+            string path = ds.SaveToFileBinaryData(3);
 
-            Assert.AreEqual(wait, resultBase64);
+            double valueFromFile = 0;
+            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            {
+                valueFromFile = reader.ReadDouble();
+            }
+
+            double expected = 67 * Math.Pow(3, 3) + 0.23 * Math.Pow(3, 2) + 1.04 * 3;
+            expected = Math.Round(expected, 3);
+
+            Assert.AreEqual(expected, valueFromFile);
         }
     }
 }
