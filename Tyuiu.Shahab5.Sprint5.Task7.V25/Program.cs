@@ -13,13 +13,13 @@ namespace Tyuiu.Shahab5.Sprint5.Task7.V25
             // Путь к входному файлу
             string inputPath = Path.Combine("C:", "DataSprint5", "InPutDataFileTask7V25.txt");
 
-            Console.Title = "Спринт #5 | Выполнил: Шабаев М.С. | АСОиУБ-25-1";
+            Console.Title = "Спринт #5 | Выполнил:   Шахаб| АСОиУБ-25-1";
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* Спринт #5                                                               *");
             Console.WriteLine("* Тема: Обработка текстовых файлов                                        *");
             Console.WriteLine("* Задание #7                                                              *");
             Console.WriteLine("* Вариант #25                                                             *");
-            Console.WriteLine("* Выполнил: Шабаев Матвей Сергеевич | АСОиУБ-25-1                         *");
+            Console.WriteLine("* Выполнил: Шахаб | АСОиУБ-25-1                         *");
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* УСЛОВИЕ:                                                                *");
             Console.WriteLine("* Дан файл C:\\DataSprint5\\InPutDataFileTask7V25.txt в котором есть      *");
