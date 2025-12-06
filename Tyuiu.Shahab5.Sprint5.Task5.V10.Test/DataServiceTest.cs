@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using Tyuiu.Shahab5.Sprint5.Task5.V10.Lib;
+using System.IO;
 
 namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Test
 {
@@ -10,28 +10,45 @@ namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Test
         [TestMethod]
         public void ValidLoadFromDataFile()
         {
-            DataService ds = new DataService();
+            // Создаем тестовый файл с данными
+            string path = @"C:\DataSprint5\InPutDataFileTask5V10.txt";
 
-            string path = Path.Combine(Path.GetTempPath(), "InPutDataFileTask5V10.txt");
+            // Создаем папку, если её нет
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
 
-            string[] testData = {
-                "2.5",
-                "4",
-                "6.0",
-                "7.3",
-                "8",
-                "10.2",
-                "12",
-                "3.7"
-            };
+            // Записываем тестовые данные
+            // Пример чисел: 2, 4, 6, 8, 2 = сумма 22
+            string[] testData = { "2", "4.0", "6.5", "8", "2", "3.7", "5", "10.2" };
             File.WriteAllLines(path, testData);
 
-            double result = ds.LoadFromDataFile(path);
-            double wait = 30; // 4 + 6 + 8 + 12 = 30 
+            DataService ds = new DataService();
+            double res = ds.LoadFromDataFile(path);
 
-            Assert.AreEqual(wait, result);
+            // Ожидаемая сумма четных целых чисел: 2 + 4 + 8 + 2 = 16?
+            // Но если в файле: 2, 4, 6, 8, 2 = 22
+            double wait = 22.0;
 
-            File.Delete(path);
+            Assert.AreEqual(wait, res);
+        }
+
+        [TestMethod]
+        public void ValidFileExists()
+        {
+            string path = @"C:\DataSprint5\InPutDataFileTask5V10.txt";
+            Assert.IsTrue(File.Exists(path));
+        }
+
+        [TestMethod]
+        public void ValidOnlyOddNumbers()
+        {
+            string path = @"C:\DataSprint5\InPutDataFileTask5V10.txt";
+            string[] testData = { "1", "3", "5", "7", "9.0" };
+            File.WriteAllLines(path, testData);
+
+            DataService ds = new DataService();
+            double res = ds.LoadFromDataFile(path);
+
+            Assert.AreEqual(0.0, res);
         }
     }
 }
