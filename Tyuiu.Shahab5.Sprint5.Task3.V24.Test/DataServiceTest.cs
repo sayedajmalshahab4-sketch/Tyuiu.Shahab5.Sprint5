@@ -15,8 +15,7 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24.Test
 
             FileInfo fileInfo = new FileInfo(path);
             bool fileExists = fileInfo.Exists;
-            bool wait = true;
-            Assert.AreEqual(wait, fileExists);
+            Assert.IsTrue(fileExists);
         }
 
         [TestMethod]
@@ -31,10 +30,26 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24.Test
                 valueFromFile = reader.ReadDouble();
             }
 
-            double expected = 67 * Math.Pow(3, 3) + 0.23 * Math.Pow(3, 2) + 1.04 * 3;
+            // Правильный расчет для формулы F(x) = 6.1x^3 + 0.23x^2 + 1.04x
+            double expected = 6.1 * Math.Pow(3, 3) + 0.23 * Math.Pow(3, 2) + 1.04 * 3;
             expected = Math.Round(expected, 3);
 
             Assert.AreEqual(expected, valueFromFile);
+        }
+
+        [TestMethod]
+        public void ValidBase64Encoding()
+        {
+            DataService ds = new DataService();
+            string path = ds.SaveToFileBinaryData(3);
+
+            byte[] fileBytes = File.ReadAllBytes(path);
+            string base64 = Convert.ToBase64String(fileBytes);
+
+            // Ожидаемый base64 для значения 169.89
+            string expectedBase64 = "FK5H4Xo8ZUA=";
+
+            Assert.AreEqual(expectedBase64, base64);
         }
     }
 }

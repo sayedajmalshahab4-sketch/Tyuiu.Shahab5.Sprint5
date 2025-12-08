@@ -12,16 +12,16 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24
 
             int x = 3;
 
-            Console.Title = "Спринт #5 | Выполнил: Шабаев М.С. | АСОиУБ-25-1";
+            Console.Title = "Спринт #5 | Выполнил:Шахаб . | АСОиУБ-25-1";
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* Спринт #5                                                               *");
             Console.WriteLine("* Тема: Потоковый метод записи данных в бинарный файл                     *");
             Console.WriteLine("* Задание #3                                                              *");
             Console.WriteLine("* Вариант #24                                                             *");
-            Console.WriteLine("* Выполнил: Шабаев Матвей Сергеевич | АСОиУБ-25-1                         *");
+            Console.WriteLine("* Выполнил: Шахаб | АСОиУБ-25-1                                           *");
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* УСЛОВИЕ:                                                                *");
-            Console.WriteLine("* Дано выражение F(x) = 67x^3 + 0.23x^2 + 1.04x, вычислить его значение   *");
+            Console.WriteLine("* Дано выражение F(x) = 6.1x^3 + 0.23x^2 + 1.04x, вычислить его значение  *");
             Console.WriteLine("* при x = 3, результат сохранить в бинарный файл OutPutFileTask3.bin и    *");
             Console.WriteLine("* вывести на консоль. Округлить до трёх знаков после запятой.             *");
             Console.WriteLine("***************************************************************************");
@@ -44,9 +44,19 @@ namespace Tyuiu.Shahab5.Sprint5.Task3.V24
                 result = reader.ReadDouble();
             }
 
-            Console.WriteLine($"Результат: {result}");
+            // Также вычисляем для проверки
+            double calculated = 6.1 * Math.Pow(3, 3) + 0.23 * Math.Pow(3, 2) + 1.04 * 3;
+            calculated = Math.Round(calculated, 3);
+
+            Console.WriteLine($"Результат вычислений: {calculated}");
+            Console.WriteLine($"Результат из файла: {result}");
             Console.WriteLine($"Файл: {path}");
             Console.WriteLine("Создан!");
+
+            // Дополнительно: покажем файл в base64 для проверки
+            byte[] fileBytes = File.ReadAllBytes(path);
+            string base64 = Convert.ToBase64String(fileBytes);
+            Console.WriteLine($"Base64 файла: {base64}");
 
             Console.ReadKey();
         }
