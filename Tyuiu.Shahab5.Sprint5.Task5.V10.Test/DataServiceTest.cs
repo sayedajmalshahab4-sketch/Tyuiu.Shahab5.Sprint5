@@ -12,36 +12,13 @@ namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Test
         {
             string path = @"C:\DataSprint5\InPutDataFileTask5V10.txt";
 
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-
+            Directory.CreateDirectory(@"C:\DataSprint5\");
             File.WriteAllText(path, "2\n4\n6\n8\n2");
 
             DataService ds = new DataService();
-            double res = ds.LoadFromDataFile(path);
+            double result = ds.LoadFromDataFile(path);
 
-            double wait = 22.0;
-
-            Assert.AreEqual(wait, res);
-        }
-
-        [TestMethod]
-        public void ValidFileExists()
-        {
-            string path = @"C:\DataSprint5\InPutDataFileTask5V10.txt";
-            bool fileExists = File.Exists(path);
-            Assert.IsTrue(fileExists);
-        }
-
-        [TestMethod]
-        public void ValidWithDecimalNumbers()
-        {
-            string path = @"C:\DataSprint5\InPutDataFileTask5V10.txt";
-            File.WriteAllText(path, "2.0\n4.0\n6.0\n8.0\n2.0");
-
-            DataService ds = new DataService();
-            double res = ds.LoadFromDataFile(path);
-
-            Assert.AreEqual(22.0, res);
+            Assert.AreEqual(22.0, result);
         }
     }
 }

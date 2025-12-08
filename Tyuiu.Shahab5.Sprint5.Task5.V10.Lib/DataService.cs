@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Globalization;
 using tyuiu.cources.programming.interfaces.Sprint5;
 
 namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Lib
@@ -13,66 +12,39 @@ namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Lib
 
         public double LoadFromDataFile(string path)
         {
-            string[] lines = File.ReadAllLines(path);
             double sum = 0;
+
+            string text = File.ReadAllText(path);
+            string[] lines = text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string line in lines)
             {
-                if (string.IsNullOrWhiteSpace(line))
-                    continue;
-
                 string cleanLine = line.Trim();
+                if (string.IsNullOrEmpty(cleanLine)) continue;
 
-                if (TryParseNumber(cleanLine, out double number))
+                
+                cleanLine = cleanLine.Replace('.', ',');
+
+                if (double.TryParse(cleanLine, out double number))
                 {
-                    number = Math.Round(number, 3, MidpointRounding.AwayFromZero);
+                    
+                    number = Math.Round(number, 3);
 
-                    if (Math.Abs(number - Math.Round(number)) < 0.0001)
+                    
+                    if (Math.Abs(number % 1) < 0.0001)
                     {
-                        int intValue = (int)Math.Round(number);
+                        int intNum = (int)Math.Round(number);
 
-                        if (intValue % 2 == 0)
+                        
+                        if (intNum % 2 == 0)
                         {
-                            sum += intValue;
+                            sum += intNum;
                         }
                     }
                 }
             }
 
             return sum;
-        }
-
-        private bool TryParseNumber(string str, out double result)
-        {
-            result = 0;
-
-            if (double.TryParse(str, NumberStyles.Float | NumberStyles.AllowThousands,
-                CultureInfo.InvariantCulture, out result))
-            {
-                return true;
-            }
-
-            if (double.TryParse(str, NumberStyles.Float | NumberStyles.AllowThousands,
-                new CultureInfo("ru-RU"), out result))
-            {
-                return true;
-            }
-
-            string modified = str.Replace('.', ',');
-            if (double.TryParse(modified, NumberStyles.Float | NumberStyles.AllowThousands,
-                new CultureInfo("ru-RU"), out result))
-            {
-                return true;
-            }
-
-            modified = str.Replace(',', '.');
-            if (double.TryParse(modified, NumberStyles.Float | NumberStyles.AllowThousands,
-                CultureInfo.InvariantCulture, out result))
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }
