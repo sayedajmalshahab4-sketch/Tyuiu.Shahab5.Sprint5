@@ -13,47 +13,66 @@ namespace Tyuiu.Shahab5.Sprint5.Task5.V10.Lib
 
         public double LoadFromDataFile(string path)
         {
-            double sum = 0;
-
-            // Читаем все строки из файла
             string[] lines = File.ReadAllLines(path);
+            double sum = 0;
 
             foreach (string line in lines)
             {
-                // Пропускаем пустые строки
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                try
+                string cleanLine = line.Trim();
+
+                if (TryParseNumber(cleanLine, out double number))
                 {
-                    // Парсим число, учитывая разные форматы (с точкой или запятой)
-                    string normalizedLine = line.Trim();
-                    normalizedLine = normalizedLine.Replace('.', ',');
+                    number = Math.Round(number, 3, MidpointRounding.AwayFromZero);
 
-                    if (double.TryParse(normalizedLine, NumberStyles.Any,
-                        CultureInfo.GetCultureInfo("ru-RU"), out double number))
+                    if (Math.Abs(number - Math.Round(number)) < 0.0001)
                     {
-                        // Проверяем, является ли число целым
-                        if (Math.Abs(number - Math.Round(number)) < 0.0001)
-                        {
-                            int intNumber = (int)Math.Round(number);
+                        int intValue = (int)Math.Round(number);
 
-                            // Проверяем четность
-                            if (intNumber % 2 == 0)
-                            {
-                                sum += intNumber;
-                            }
+                        if (intValue % 2 == 0)
+                        {
+                            sum += intValue;
                         }
                     }
-                }
-                catch
-                {
-                    // Игнорируем строки, которые не являются числами
-                    continue;
                 }
             }
 
             return sum;
+        }
+
+        private bool TryParseNumber(string str, out double result)
+        {
+            result = 0;
+
+            if (double.TryParse(str, NumberStyles.Float | NumberStyles.AllowThousands,
+                CultureInfo.InvariantCulture, out result))
+            {
+                return true;
+            }
+
+            if (double.TryParse(str, NumberStyles.Float | NumberStyles.AllowThousands,
+                new CultureInfo("ru-RU"), out result))
+            {
+                return true;
+            }
+
+            string modified = str.Replace('.', ',');
+            if (double.TryParse(modified, NumberStyles.Float | NumberStyles.AllowThousands,
+                new CultureInfo("ru-RU"), out result))
+            {
+                return true;
+            }
+
+            modified = str.Replace(',', '.');
+            if (double.TryParse(modified, NumberStyles.Float | NumberStyles.AllowThousands,
+                CultureInfo.InvariantCulture, out result))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
